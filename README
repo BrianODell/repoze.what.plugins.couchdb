@@ -1,3 +1,10 @@
+This is a fork of http://www.gawel.org/docs/repoze.what.plugins.couchdbkit/
+
+It replaces couchdbkit with couchdb-python.
+
+More to come!
 
 to use:
+$ git clone ...
+$ cd repoze.what.plugins.couchdb
 $ python setup.py develop
