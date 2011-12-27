@@ -26,8 +26,9 @@ class GroupAdapter(BaseSourceAdapter):
 
     def _find_sections(self, hint):
         user = self.db.get(hint['repoze.what.userid'])
-        groups = [doc['name'] for doc in user.get('groups', [])]
-        return groups
+        groups = [self.db[_id] for _id in user.get('groups', [])]
+        groupnames = [doc['name'] for doc in groups]
+        return groupnames
 
     def _include_items(self, section, items):
         raise NotImplementedError()
@@ -52,9 +53,9 @@ class PermissionAdapter(BaseSourceAdapter):
         raise NotImplementedError()
 
     def _find_sections(self, hint):
-        groups = self.db.view('auth/group_by_name', key=hint)
+        groups = Group.view(self.db, 'auth/group_by_name', key=hint)
         for doc in groups:
-            perms = doc.get('value', {}).get('permissions')
+            perms = [self.db[_id] for _id in doc.permissions]
             perms = [doc['name'] for doc in perms]
             return perms
         return []
