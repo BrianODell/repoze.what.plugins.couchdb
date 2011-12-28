@@ -1,0 +1,14 @@
+{
+   "_id": "_design/auth",
+   "views": {
+       "user_by_name": {
+           "map": "function(doc) { \n    if (doc.type == \"User\")\n        emit(doc.username, doc);\n}"
+       },
+       "group_by_name": {
+           "map": "function(doc) { \n    if (doc.type == \"Group\")\n        emit(doc.name, doc);\n}"
+       },
+       "group_users": {
+           "map": "function(doc) { \n    if (doc.type == \"User\" && doc.groups.length > 0) {\n        for (var i=0; i++; doc.groups.length) {\n            emit(doc.groups[i], doc);\n        } \n    }\n}"
+       }
+   }
+}
