@@ -8,6 +8,7 @@ from repoze.what.adapters import BaseSourceAdapter, SourceError
 from couchdb import Server
 from documents import Group, Permission, User
 import os
+import json
 
 
 class GroupAdapter(BaseSourceAdapter):
@@ -109,7 +110,7 @@ class MDPlugin(object):
 def init_designs(db):
     """Use ``couchdbkit.FileSystemDocsLoader`` to load design docs needed by plugins
     """
-    design_docs = os.path.join(os.path.dirname(__file__), '_design')
-    loader = FileSystemDocsLoader(design_docs)
-    loader.sync(db, verbose=True)
+    design_doc = os.path.join(os.path.dirname(__file__), '_design_auth.json')
+    _design_auth_doc = json.load(open(design_doc))
+    db['_design/auth'] = _design_auth_doc
 
