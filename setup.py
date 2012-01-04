@@ -5,7 +5,7 @@ version = '0.1'
 setup(name='repoze.what.plugins.couchdb',
       version=version,
       description="repoze.what plugin for couchdb",
-      long_description=open('README.txt').read(),
+      long_description=open('README').read(),
       classifiers=[
           'Intended Audience :: Developers',
           'License :: OSI Approved :: MIT License',
